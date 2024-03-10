@@ -60,10 +60,18 @@
 </div>
 
 <style>
+  h1{
+    font-size: 0.8rem;
+  }
+  h2{
+    text-align: center;
+
+  }
 	.header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
 	}
 	.output {
 		display: flex;
