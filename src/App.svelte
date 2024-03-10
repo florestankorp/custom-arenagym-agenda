@@ -19,19 +19,25 @@
   let weekNumber = getWeek(new Date());
   const year = getYear(new Date());
   const trainingFilter: Record<TrainingType, boolean> = {
-    [TrainingType.FITNESS]: true,
-    [TrainingType.CF_OPEN_BOX]: true,
-    [TrainingType.INSTRUCTIE_OPEN_GYM]: true,
+    [TrainingType.FITNESS]: false,
+    [TrainingType.INSTRUCTIE_OPEN_GYM]: false,
+    [TrainingType.CF_OPEN_BOX]: false,
+    [TrainingType.CF_GYMNASTICS]: true,
     [TrainingType.CF_WEIGHTLIFTING]: true,
     [TrainingType.CROSSFIT_WOD]: true,
+    [TrainingType.CROSSFIT_ADVANCED]: true,
+    [TrainingType.CROSSFIT_FUNDAMENTALS]: true,
     [TrainingType.HYROX]: true,
     [TrainingType.KICKBOKSEN]: true,
     [TrainingType.KICKBOKSEN_RECREANTEN]: true,
     [TrainingType.KICKBOKSEN_ADVANCED]: true,
+    [TrainingType.KIDS_KICKBOKSEN]: false,
     [TrainingType.BOKSEN]: true,
     [TrainingType.ZAKTRAINING]: true,
-    [TrainingType.KIDS_PERFORMANCE]: true,
-    [TrainingType.LADIES_ONLY_FIT_TALITY]: true,
+    [TrainingType.KIDS_PERFORMANCE]: false,
+    [TrainingType.LADIES_ONLY_FIT_TALITY]: false,
+    [TrainingType.LADIES_ONLY_HIIT]: false,
+    [TrainingType.CIRCUIT_TRAINING]: true
   };
 
   function updateTrainings(): void {
@@ -125,8 +131,8 @@
 		margin-top: 20px;
 		display: grid;
 		grid-auto-flow: column;
-		grid-template: repeat(5, 1fr) / repeat(2, 1fr);
-		width: 50%;
+		grid-template: repeat(5, 1fr) / repeat(3, 1fr);
+
 
 		/* Everything smaller than desktop */
 		@media only screen and (max-width: 768px) {
