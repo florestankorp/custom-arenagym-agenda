@@ -2,19 +2,26 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable sort-imports */
 /* eslint-disable sort-vars */
-import { Weekday, type Training } from '../models';
+
+import { Weekday, type Training, type TrainingType } from '../models';
+
+export function initializeMap(): Map<Weekday, Training[]> {
+	const initializedMap = new Map<Weekday, Training[]>();
+
+	Object.values(Weekday).forEach((key) => {
+		if (typeof key === 'number') {
+			initializedMap.set(key, []);
+		}
+	});
+
+	return initializedMap;
+}
 
 export const mapHTMLToData = (html: string): Map<Weekday, Training[]> => {
 	const parser = new DOMParser(),
 		doc = parser.parseFromString(html, 'text/html'),
 		itemsDayElements = doc.querySelectorAll('.items-day'),
-		temp = new Map<Weekday, Training[]>();
-
-	Object.values(Weekday).forEach((key) => {
-		if (typeof key === 'number') {
-			temp.set(key, []);
-		}
-	});
+		temp = initializeMap();
 
 	// Iterate over each 'items-day' element
 	itemsDayElements.forEach((itemsDayElement, index) => {
@@ -28,17 +35,15 @@ export const mapHTMLToData = (html: string): Map<Weekday, Training[]> => {
 			}
 
 			daytime.querySelectorAll('.evtitem').forEach((evtitem) => {
-				const title = evtitem.querySelector('.title')!.textContent,
+				const title = evtitem.querySelector('.title')!.textContent as TrainingType,
 					time = evtitem.querySelector('.time')!.textContent,
 					trainer = evtitem.querySelector('.trainer')!.textContent;
 
-				if (title !== 'Fitness' && title !== 'CF Open Box' && title !== 'Instructie Open Gym') {
-					temp.get(index)!.push({
-						time,
-						title,
-						trainer
-					});
-				}
+				temp.get(index)!.push({
+					time,
+					title,
+					trainer,
+				});
 			});
 		});
 	});

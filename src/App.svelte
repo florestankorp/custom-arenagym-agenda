@@ -1,4 +1,3 @@
-<!-- eslint-disable sort-imports -->
 <!-- eslint-disable @typescript-eslint/no-magic-numbers -->
 <!-- eslint-disable sort-imports -->
 <!-- eslint-disable svelte/block-lang -->
@@ -9,23 +8,59 @@
   import { getWeek, getYear } from 'date-fns';
   import { onMount } from 'svelte';
 // eslint-disable-next-line sort-imports
-  import { Weekday, type Training } from './models';
-  import { mapHTMLToData } from './utils';
+  import { TrainingType, Weekday, type Training } from './models';
+  import { initializeMap, mapHTMLToData } from './utils';
 
-  let transformedData = new Map<Weekday, Training[]>(),
-    weekNumber = getWeek(new Date());
+  let transformedData = new Map<Weekday, Training[]>();
+
+  // eslint-disable-next-line @typescript-eslint/init-declarations
+  let transformedDataImmutable: Map<Weekday, Training[]>;
+
+  let weekNumber = getWeek(new Date());
   const year = getYear(new Date());
+  const trainingFilter: Record<TrainingType, boolean> = {
+    [TrainingType.FITNESS]: true,
+    [TrainingType.CF_OPEN_BOX]: true,
+    [TrainingType.INSTRUCTIE_OPEN_GYM]: true,
+    [TrainingType.CF_WEIGHTLIFTING]: true,
+    [TrainingType.CROSSFIT_WOD]: true,
+    [TrainingType.HYROX]: true,
+    [TrainingType.KICKBOKSEN]: true,
+    [TrainingType.KICKBOKSEN_RECREANTEN]: true,
+    [TrainingType.KICKBOKSEN_ADVANCED]: true,
+    [TrainingType.BOKSEN]: true,
+    [TrainingType.ZAKTRAINING]: true,
+    [TrainingType.KIDS_PERFORMANCE]: true,
+    [TrainingType.LADIES_ONLY_FIT_TALITY]: true,
+  };
 
-  // eslint-disable-next-line one-var, no-shadow, @typescript-eslint/no-shadow
-  const loadData = async (year: number, weekNumber: number): Promise<void> => {
+  function updateTrainings(): void {
+    const updatedData = initializeMap();
+    const selectedTitles = Object.keys(trainingFilter).filter(
+      (trainingType) => trainingFilter[trainingType as TrainingType]
+    );
+
+    for (const [key, weekday] of transformedDataImmutable) {
+      updatedData.set(
+        key,
+        weekday.filter(({ title }) => (title === null ? false : selectedTitles.includes(title)))
+      );
+    }
+
+    transformedData = updatedData;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  async function loadData(year: number, weekNumber: number): Promise<void> {
     const response = await fetch(
       `https://arenagym.sportbitapp.nl/cbm/embed/rooster/web/2/?jaar=${year}&weeknr=${weekNumber}`
-    ),
-      // eslint-disable-next-line sort-vars
-      html = await response.text();
+    );
+    const html = await response.text();
 
     transformedData = mapHTMLToData(html);
-  };
+    transformedDataImmutable = transformedData;
+    updateTrainings();
+  }
 
   onMount(async () => loadData(year, weekNumber));
 </script>
@@ -38,6 +73,20 @@
   <button
     type="button"
     on:click={async () => loadData(year, (weekNumber += 1))}>Next</button>
+</div>
+<div class="options">
+  {#each Object.keys(trainingFilter) as key, transformedDataIndex (transformedDataIndex)}
+    <label>
+      <input
+        type="checkbox"
+        bind:checked={trainingFilter[key]}
+        on:change={() => {
+          updateTrainings(key);
+        }}
+      />
+      {key}
+    </label>
+  {/each}
 </div>
 <div class="output">
   {#each transformedData as [key, values], transformedDataIndex (transformedDataIndex)}
@@ -60,19 +109,33 @@
 </div>
 
 <style>
-  h1{
-    font-size: 0.8rem;
-  }
-  h2{
-    text-align: center;
-
-  }
+	h1 {
+		font-size: 0.8rem;
+	}
+	h2 {
+		text-align: center;
+	}
 	.header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-
 	}
+
+	.options {
+		margin-top: 20px;
+		display: grid;
+		grid-auto-flow: column;
+		grid-template: repeat(5, 1fr) / repeat(2, 1fr);
+		width: 50%;
+
+		/* Everything smaller than desktop */
+		@media only screen and (max-width: 768px) {
+			width: 100%;
+			grid-auto-flow: unset;
+			grid-template: unset;
+		}
+	}
+
 	.output {
 		display: flex;
 		flex-direction: row;

@@ -2,6 +2,13 @@
 /** @type { import("eslint").Linter.Config } */
 module.exports = {
 	root: true,
+	rules: {
+		"sort-imports": "off",
+		"func-style": "off",
+		"one-var": "off",
+		"no-ternary": "off",
+		"@typescript-eslint/prefer-readonly-parameter-types": "off"
+	},
 	extends: [
 		'eslint:all',
 		'plugin:@typescript-eslint/all',
