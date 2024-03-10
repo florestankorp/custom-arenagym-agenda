@@ -1,10 +1,11 @@
+/* eslint-disable sort-keys */
 /** @type { import("eslint").Linter.Config } */
 module.exports = {
 	root: true,
 	extends: [
-		'eslint:recommended',
-		'plugin:@typescript-eslint/recommended',
-		'plugin:svelte/recommended',
+		'eslint:all',
+		'plugin:@typescript-eslint/all',
+		'plugin:svelte/all',
 		'prettier'
 	],
 	parser: '@typescript-eslint/parser',
@@ -12,7 +13,8 @@ module.exports = {
 	parserOptions: {
 		sourceType: 'module',
 		ecmaVersion: 2020,
-		extraFileExtensions: ['.svelte']
+		extraFileExtensions: ['.svelte'],
+		project: './tsconfig.json',
 	},
 	env: {
 		browser: true,
