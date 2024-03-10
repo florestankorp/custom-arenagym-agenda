@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/prefer-enum-initializers */
 export enum Weekday {
 	Monday,
 	Tuesday,
