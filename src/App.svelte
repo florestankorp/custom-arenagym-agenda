@@ -1,5 +1,4 @@
 <!-- eslint-disable @typescript-eslint/no-magic-numbers -->
-<!-- eslint-disable sort-imports -->
 <!-- eslint-disable svelte/block-lang -->
 <!-- eslint-disable sort-imports -->
 <script
@@ -7,8 +6,10 @@
   strictEvents>
   import { getWeek, getYear } from 'date-fns';
   import { onMount } from 'svelte';
-// eslint-disable-next-line sort-imports
-  import { TrainingType, Weekday, type Training } from './models';
+  import Nav from './components/Nav.svelte';
+  import Options from './components/Options.svelte';
+  import Overview from './components/Overview.svelte';
+  import { TrainingType, type Training, type Weekday } from './models';
   import { initializeMap, mapHTMLToData } from './utils';
 
   let transformedData = new Map<Weekday, Training[]>();
@@ -16,7 +17,7 @@
   // eslint-disable-next-line @typescript-eslint/init-declarations
   let transformedDataImmutable: Map<Weekday, Training[]>;
 
-  let weekNumber = getWeek(new Date());
+  const weekNumber = getWeek(new Date());
   const year = getYear(new Date());
   const trainingFilter: Record<TrainingType, boolean> = {
     [TrainingType.FITNESS]: false,
@@ -37,7 +38,7 @@
     [TrainingType.KIDS_PERFORMANCE]: false,
     [TrainingType.LADIES_ONLY_FIT_TALITY]: false,
     [TrainingType.LADIES_ONLY_HIIT]: false,
-    [TrainingType.CIRCUIT_TRAINING]: true
+    [TrainingType.CIRCUIT_TRAINING]: true,
   };
 
   function updateTrainings(): void {
@@ -71,95 +72,14 @@
   onMount(async () => loadData(year, weekNumber));
 </script>
 
-<div class="header">
-  <button
-    type="button"
-    on:click={async () => loadData(year, (weekNumber -= 1))}>Previous</button>
-  <h1>Week {weekNumber}</h1>
-  <button
-    type="button"
-    on:click={async () => loadData(year, (weekNumber += 1))}>Next</button>
-</div>
-<div class="options">
-  {#each Object.keys(trainingFilter) as key, transformedDataIndex (transformedDataIndex)}
-    <label>
-      <input
-        type="checkbox"
-        bind:checked={trainingFilter[key]}
-        on:change={() => {
-          updateTrainings(key);
-        }}
-      />
-      {key}
-    </label>
-  {/each}
-</div>
-<div class="output">
-  {#each transformedData as [key, values], transformedDataIndex (transformedDataIndex)}
-    {#if values.length}
-      <div>
-        <h2>
-          {Weekday[key]}
-        </h2>
-
-        {#each values as training, trainingIndex (trainingIndex)}
-          <div class="card">
-            <p>{training.title}</p>
-            <p>{training.time}</p>
-            <p>{training.trainer}</p>
-          </div>
-        {/each}
-      </div>
-    {/if}
-  {/each}
-</div>
-
-<style>
-	h1 {
-		font-size: 0.8rem;
-	}
-	h2 {
-		text-align: center;
-	}
-	.header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.options {
-		margin-top: 20px;
-		display: grid;
-		grid-auto-flow: column;
-		grid-template: repeat(5, 1fr) / repeat(3, 1fr);
-
-
-		/* Everything smaller than desktop */
-		@media only screen and (max-width: 768px) {
-			width: 100%;
-			grid-auto-flow: unset;
-			grid-template: unset;
-		}
-	}
-
-	.output {
-		display: flex;
-		flex-direction: row;
-		gap: 24px;
-
-		/* Everything smaller than desktop */
-		@media only screen and (max-width: 768px) {
-			flex-direction: column;
-		}
-	}
-
-	.card {
-		margin-bottom: 16px;
-		padding: 16px;
-		border: 1px solid black;
-	}
-
-	p {
-		margin: 0;
-	}
-</style>
+<!-- eslint-disable @typescript-eslint/no-unsafe-argument -->
+<!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
+<Nav
+  {weekNumber}
+  {year}
+  on:data={async ({ detail: { weekNumber, year } }) => loadData(year, weekNumber)}
+/>
+<Options
+  {trainingFilter}
+  on:change={updateTrainings} />
+<Overview {transformedData} />
