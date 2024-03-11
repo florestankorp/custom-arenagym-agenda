@@ -8,6 +8,8 @@ module.exports = {
 		"one-var": "off",
 		"no-ternary": "off",
 		"sort-keys": "off",
+		"capitalized-comments": "off",
+		"multiline-comment-style": "off",
 		"svelte/block-lang": "off",
 		"@typescript-eslint/no-shadow": "off",
 		"@typescript-eslint/prefer-readonly-parameter-types": "off"
