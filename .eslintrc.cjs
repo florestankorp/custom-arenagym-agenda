@@ -7,6 +7,7 @@ module.exports = {
 		"func-style": "off",
 		"one-var": "off",
 		"no-ternary": "off",
+		"sort-keys": "off",
 		"svelte/block-lang": "off",
 		"@typescript-eslint/no-shadow": "off",
 		"@typescript-eslint/prefer-readonly-parameter-types": "off"
