@@ -17,6 +17,8 @@
   // eslint-disable-next-line @typescript-eslint/init-declarations
   let transformedDataImmutable: Map<Weekday, Training[]>;
 
+  let open = false;
+
   const weekNumber = getWeek(new Date());
   const year = getYear(new Date());
   const trainingFilter: Record<TrainingType, boolean> = {
@@ -74,12 +76,31 @@
 
 <!-- eslint-disable @typescript-eslint/no-unsafe-argument -->
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
+
+
+<Options
+  {trainingFilter}
+  bind:sidebar={open}
+  on:change={updateTrainings} />
+
+
 <Nav
   {weekNumber}
   {year}
   on:data={async ({ detail: { weekNumber, year } }) => loadData(year, weekNumber)}
 />
-<Options
-  {trainingFilter}
-  on:change={updateTrainings} />
+<div class="container">
+  <button
+    type="button"
+    on:click={() => (open = !open)}>
+    Toggle filter
+  </button>
+</div>
 <Overview {transformedData} />
+
+<style>
+.container{
+  margin-top: 20px;
+  text-align: end;
+}
+</style>

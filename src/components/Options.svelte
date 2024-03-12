@@ -4,16 +4,20 @@
   import { createEventDispatcher } from 'svelte';
   import type { TrainingType } from '../models';
   export let trainingFilter: Record<TrainingType, boolean> | null = null;
+  export let sidebar = false;
   const dispatch = createEventDispatcher<{ change: unknown }>();
 
   function getKey(key: string): TrainingType {
-    return key as TrainingType
+    return key as TrainingType;
   }
 </script>
 
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
 <!-- eslint-disable svelte/require-each-key -->
-<div class="options">
+
+<aside
+  class="options"
+  class:sidebar>
   {#if trainingFilter}
     {#each Object.keys(trainingFilter) as key}
       <label>
@@ -26,20 +30,31 @@
       </label>
     {/each}
   {/if}
-</div>
+</aside>
 
 <style>
 	.options {
-		margin-top: 20px;
-		display: grid;
-		grid-auto-flow: column;
-		grid-template: repeat(5, 1fr) / repeat(3, 1fr);
+		display: flex;
+		flex-direction: column;
+		background-color: #333333;
+		padding: 20px;
+		height: 100vh;
 
 		/* Everything smaller than desktop */
 		@media only screen and (max-width: 768px) {
-			width: 100%;
-			grid-auto-flow: unset;
-			grid-template: unset;
 		}
+	}
+
+	aside {
+		/* offscreen by default */
+		left: -100%;
+		top: 0;
+		transition: left 0.3s ease-in-out;
+		position: absolute;
+	}
+
+	.sidebar {
+		/* slide on screen */
+		left: 0;
 	}
 </style>
