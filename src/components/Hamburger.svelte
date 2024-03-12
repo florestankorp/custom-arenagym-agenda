@@ -7,7 +7,7 @@
 <button
   class:open
   type="button"
-  on:click={() => (open = !open)}>
+  on:click={() => (open = true)}>
   <svg
     height="24"
     width="32">

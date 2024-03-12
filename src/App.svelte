@@ -18,7 +18,7 @@
   // eslint-disable-next-line @typescript-eslint/init-declarations
   let transformedDataImmutable: Map<Weekday, Training[]>;
 
-  let open = false;
+  let showOptions = false;
 
   const weekNumber = getWeek(new Date());
   const year = getYear(new Date());
@@ -77,9 +77,14 @@
 
 <header>
   <nav>
-    <Hamburger bind:open />
+    <Hamburger bind:open={showOptions} />
   </nav>
 </header>
+
+<Options
+  {trainingFilter}
+  bind:sidebar={showOptions}
+  on:change={updateTrainings} />
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
@@ -88,14 +93,9 @@
 <div
   class="app-container"
   on:click|stopPropagation={() => {
-    open = false;
+    showOptions = false;
   }}
 >
-  <Options
-    {trainingFilter}
-    bind:sidebar={open}
-    on:change={updateTrainings} />
-
   <WeekSelect
     {weekNumber}
     {year}
