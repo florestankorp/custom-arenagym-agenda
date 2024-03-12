@@ -47,10 +47,18 @@
 	.card {
 		margin-bottom: 16px;
 		padding: 16px;
-		border: 1px solid black;
+    color-scheme: light dark;
+		border: 1px solid white;
 	}
 
 	p {
 		margin: 0;
+	}
+
+  @media (prefers-color-scheme: light) {
+		.card {
+			color: #213547;
+      border: 1px solid black;
+		}
 	}
 </style>
