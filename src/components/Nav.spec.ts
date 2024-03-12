@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/svelte';
 import { userEvent } from '@testing-library/user-event';
 import { describe, expect, test, vi } from 'vitest';
-import Nav from './Nav.svelte';
+import Nav from './WeekSelect.svelte';
 describe('Nav', () => {
 	test('shows the todo text when rendered', () => {
 		render(Nav, { weekNumber: 1, year: 2030 });

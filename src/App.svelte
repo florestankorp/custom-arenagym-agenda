@@ -6,9 +6,10 @@
   strictEvents>
   import { getWeek, getYear } from 'date-fns';
   import { onMount } from 'svelte';
-  import Nav from './components/Nav.svelte';
+  import Hamburger from './components/Hamburger.svelte';
   import Options from './components/Options.svelte';
   import Overview from './components/Overview.svelte';
+  import WeekSelect from './components/WeekSelect.svelte';
   import { TrainingType, type Training, type Weekday } from './models';
   import { initializeMap, mapHTMLToData } from './utils';
 
@@ -74,33 +75,46 @@
   onMount(async () => loadData(year, weekNumber));
 </script>
 
+<header>
+  <nav>
+    <Hamburger bind:open />
+  </nav>
+</header>
+
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- eslint-disable @typescript-eslint/no-unsafe-argument -->
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
+<div
+  class="app-container"
+  on:click|stopPropagation={() => {
+    open = false;
+  }}
+>
+  <Options
+    {trainingFilter}
+    bind:sidebar={open}
+    on:change={updateTrainings} />
 
+  <WeekSelect
+    {weekNumber}
+    {year}
+    on:data={async ({ detail: { weekNumber, year } }) => loadData(year, weekNumber)}
+  />
 
-<Options
-  {trainingFilter}
-  bind:sidebar={open}
-  on:change={updateTrainings} />
-
-
-<Nav
-  {weekNumber}
-  {year}
-  on:data={async ({ detail: { weekNumber, year } }) => loadData(year, weekNumber)}
-/>
-<div class="container">
-  <button
-    type="button"
-    on:click={() => (open = !open)}>
-    Toggle filter
-  </button>
+  <Overview {transformedData} />
 </div>
-<Overview {transformedData} />
 
 <style>
-.container{
-  margin-top: 20px;
-  text-align: end;
-}
+	header {
+		z-index: 1;
+		width: 100vw;
+		background-color: brown;
+		margin-bottom: 20px;
+	}
+
+	.app-container {
+		padding: 2rem;
+		margin: 0 auto;
+	}
 </style>

@@ -36,10 +36,12 @@
 	.options {
 		display: flex;
 		flex-direction: column;
+		color-scheme: light dark;
+		color: rgba(255, 255, 255, 0.87);
 		background-color: #333333;
 		padding: 20px;
 		height: 100vh;
-
+    position: fixed;
 		/* Everything smaller than desktop */
 		@media only screen and (max-width: 768px) {
 		}
@@ -56,5 +58,12 @@
 	.sidebar {
 		/* slide on screen */
 		left: 0;
+	}
+
+	@media (prefers-color-scheme: light) {
+		.options {
+			color: #213547;
+			background-color: #ffffff;
+		}
 	}
 </style>

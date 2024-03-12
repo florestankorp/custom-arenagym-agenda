@@ -1,0 +1,67 @@
+<script
+  lang="ts"
+  strictEvents>
+  export let open = false;
+</script>
+
+<button
+  class:open
+  type="button"
+  on:click={() => (open = !open)}>
+  <svg
+    height="24"
+    width="32">
+    <line
+      id="top"
+      x1="0"
+      x2="24"
+      y1="2"
+      y2="2" />
+    <line
+      id="middle"
+      x1="0"
+      x2="24"
+      y1="12"
+      y2="12" />
+    <line
+      id="bottom"
+      x1="0"
+      x2="24"
+      y1="22"
+      y2="22" />
+  </svg>
+</button>
+
+<style>
+	svg {
+		min-height: 24px;
+		transition: transform 0.3s ease-in-out;
+	}
+
+	svg line {
+		stroke: currentColor;
+		stroke-width: 3;
+		transition: transform 0.3s ease-in-out;
+	}
+
+	button {
+		z-index: 20;
+        background: none;
+	}
+
+	.open svg {
+		transform: scale(0.7);
+	}
+
+	.open #top {
+		transform: translate(6px, 0px) rotate(45deg);
+	}
+
+	.open #middle {
+		opacity: 0;
+	}
+
+	.open #bottom {
+		transform: translate(-12px, 9px) rotate(-45deg);
+	}
+</style>
