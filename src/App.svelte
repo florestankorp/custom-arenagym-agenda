@@ -84,16 +84,10 @@
   bind:sidebar={showOptions}
   on:change={updateTrainings} />
 
-<!-- svelte-ignore a11y-click-events-have-key-events -->
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+
 <!-- eslint-disable @typescript-eslint/no-unsafe-argument -->
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
-<div
-  class="app-container"
-  on:click|stopPropagation={() => {
-    showOptions = false;
-  }}
->
+<div class="app-container">
   <WeekSelect
     {weekNumber}
     {year}

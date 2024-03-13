@@ -3,6 +3,7 @@
   strictEvents>
   import { createEventDispatcher } from 'svelte';
   import type { TrainingType } from '../models';
+  import { clickOutside } from '../utils';
   export let trainingFilter: Record<TrainingType, boolean> | null = null;
   export let sidebar = false;
   const dispatch = createEventDispatcher<{ change: unknown }>();
@@ -16,7 +17,10 @@
 <!-- eslint-disable svelte/require-each-key -->
 <aside
   class="options"
-  class:sidebar>
+  class:sidebar
+  on:click_outside={() => (sidebar = false)}
+  use:clickOutside
+>
   {#if trainingFilter}
     {#each Object.keys(trainingFilter) as key}
       <label>
