@@ -19,6 +19,7 @@
 
 <div class="header">
   <button
+    data-testid="button-previous"
     type="button"
     on:click={async () => {
       if (weekNumber !== null && year !== null) {
@@ -30,6 +31,7 @@
   </button>
   <h1>Week {weekNumber}</h1>
   <button
+    data-testid="button-next"
     type="button"
     on:click={async () => {
       if (weekNumber !== null && year !== null) {
