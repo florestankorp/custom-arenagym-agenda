@@ -39,7 +39,7 @@
 		gap: 24px;
 
 		/* Everything smaller than desktop */
-		@media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
 			flex-direction: column;
 		}
 	}

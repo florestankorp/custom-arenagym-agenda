@@ -14,7 +14,6 @@
 
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
 <!-- eslint-disable svelte/require-each-key -->
-
 <aside
   class="options"
   class:sidebar>
@@ -42,9 +41,6 @@
 		padding: 20px;
 		height: 100vh;
 		position: fixed;
-		/* Everything smaller than desktop */
-		@media only screen and (max-width: 768px) {
-		}
 	}
 
 	aside {

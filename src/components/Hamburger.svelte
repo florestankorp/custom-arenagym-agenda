@@ -4,6 +4,8 @@
   export let open = false;
 </script>
 
+
+<!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
 <button
   class:open
   type="button"

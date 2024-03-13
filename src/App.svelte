@@ -13,11 +13,9 @@
   import { TrainingType, type Training, type Weekday } from './models';
   import { initializeMap, mapHTMLToData } from './utils';
 
-  let transformedData = new Map<Weekday, Training[]>();
-
   // eslint-disable-next-line @typescript-eslint/init-declarations
   let transformedDataImmutable: Map<Weekday, Training[]>;
-
+  let transformedData = new Map<Weekday, Training[]>();
   let showOptions = false;
 
   const weekNumber = getWeek(new Date());
@@ -110,7 +108,6 @@
 		z-index: 1;
 		width: 100vw;
 		background-color: brown;
-		margin-bottom: 20px;
 	}
 
 	.app-container {
