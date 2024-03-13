@@ -15,6 +15,7 @@
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
 <!-- eslint-disable @typescript-eslint/require-await -->
 <!-- eslint-disable @typescript-eslint/no-magic-numbers -->
+<!-- eslint-disable svelte/no-unused-class-name -->
 
 <div class="header">
   <button
@@ -23,8 +24,10 @@
       if (weekNumber !== null && year !== null) {
         loadData(year, (weekNumber -= 1));
       }
-    }}>Previous</button
+    }}
   >
+    <i class="fa fa-solid fa-arrow-left" />
+  </button>
   <h1>Week {weekNumber}</h1>
   <button
     type="button"
@@ -32,8 +35,10 @@
       if (weekNumber !== null && year !== null) {
         loadData(year, (weekNumber += 1));
       }
-    }}>Next</button
+    }}
   >
+    <i class="fa fa-solid fa-arrow-right" />
+  </button>
 </div>
 
 <style>
