@@ -11,6 +11,7 @@ export enum Weekday {
 }
 
 export enum TrainingType {
+	SELECT_ALL = 'Select all',
 	FITNESS = 'Fitness',
 	INSTRUCTIE_OPEN_GYM = 'Instructie Open Gym',
 	CF_OPEN_BOX = 'CF Open Box',

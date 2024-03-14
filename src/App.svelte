@@ -21,6 +21,7 @@
   const weekNumber = getWeek(new Date());
   const year = getYear(new Date());
   const trainingFilter: Record<TrainingType, boolean> = {
+    [TrainingType.SELECT_ALL]: false,
     [TrainingType.FITNESS]: false,
     [TrainingType.INSTRUCTIE_OPEN_GYM]: false,
     [TrainingType.CF_OPEN_BOX]: false,
@@ -42,8 +43,18 @@
     [TrainingType.CIRCUIT_TRAINING]: true,
   };
 
-  function updateTrainings(): void {
+  function updateTrainings(filterParam?: TrainingType): void {
     const updatedData = initializeMap();
+
+    // Toggle select all
+    if (filterParam === TrainingType.SELECT_ALL) {
+      for (const filter in trainingFilter) {
+        if (Object.hasOwn(trainingFilter, filter)) {
+          trainingFilter[filter as TrainingType] = trainingFilter[TrainingType.SELECT_ALL];
+        }
+      }
+    }
+
     const selectedTitles = Object.keys(trainingFilter).filter(
       (trainingType) => trainingFilter[trainingType as TrainingType]
     );
@@ -82,8 +93,10 @@
 <Options
   {trainingFilter}
   bind:sidebar={showOptions}
-  on:change={updateTrainings} />
-
+  on:change={({ detail: { filterParam } }) => {
+    updateTrainings(filterParam);
+  }}
+/>
 
 <!-- eslint-disable @typescript-eslint/no-unsafe-argument -->
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
