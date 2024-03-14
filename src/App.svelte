@@ -112,7 +112,6 @@
 
 <style>
 	header {
-		z-index: 1;
 		width: 100vw;
 		background-color: brown;
 		position: sticky;

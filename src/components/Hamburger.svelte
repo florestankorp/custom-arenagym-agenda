@@ -4,7 +4,6 @@
   export let open = false;
 </script>
 
-
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
 <button
   class:open
@@ -47,8 +46,8 @@
 	}
 
 	button {
-		z-index: 20;
-        background: none;
+		/* z-index: 20; */
+		background: none;
 	}
 
 	.open svg {
