@@ -115,6 +115,8 @@
 		z-index: 1;
 		width: 100vw;
 		background-color: brown;
+		position: sticky;
+		top: 0;
 	}
 
 	.app-container {
