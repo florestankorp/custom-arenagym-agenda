@@ -17,7 +17,7 @@
 <!-- eslint-disable @typescript-eslint/no-magic-numbers -->
 <!-- eslint-disable svelte/no-unused-class-name -->
 
-<div class="header">
+<div class="week-select">
   <button
     data-testid="button-previous"
     type="button"
@@ -47,7 +47,7 @@
 	h1 {
 		font-size: 0.8rem;
 	}
-	.header {
+	.week-select {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
