@@ -89,6 +89,8 @@
     <Hamburger bind:open={showOptions} />
   </nav>
 </header>
+<!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
+<!-- eslint-disable @typescript-eslint/no-unsafe-argument -->
 
 <Options
   {trainingFilter}
@@ -98,8 +100,6 @@
   }}
 />
 
-<!-- eslint-disable @typescript-eslint/no-unsafe-argument -->
-<!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
 <div class="app-container">
   <WeekSelect
     {weekNumber}
