@@ -144,6 +144,5 @@
 		width: 100%;
 		margin-top: 20px;
 		border: 1px solid brown;
-		background-color: white;
 	}
 </style>
