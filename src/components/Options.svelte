@@ -6,7 +6,7 @@
   import { clickOutside } from '../utils';
   export let trainingFilter: Record<TrainingType, boolean> | null = null;
   export let sidebar = false;
-  const dispatch = createEventDispatcher<{ change: { filterParam: TrainingType } }>();
+  const dispatch = createEventDispatcher<{ changeTrainingsFilter: { filterParam: TrainingType } }>();
 
   function getKey(key: string): TrainingType {
     return key as TrainingType;
@@ -26,7 +26,7 @@
         <input
           type="checkbox"
           bind:checked={trainingFilter[getKey(key)]}
-          on:change={() => dispatch('change', { filterParam: getKey(key) })}
+          on:change={() => dispatch('changeTrainingsFilter', { filterParam: getKey(key) })}
         />
         {key}
       </label>

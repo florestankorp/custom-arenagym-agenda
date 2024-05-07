@@ -38,3 +38,8 @@ export interface Training {
 	time: string | null;
 	trainer: string | null;
 }
+
+export enum ShowRangeEnum {
+	Today,
+	All,
+}

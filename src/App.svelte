@@ -10,16 +10,17 @@
   import Options from './components/Options.svelte';
   import Overview from './components/Overview.svelte';
   import WeekSelect from './components/WeekSelect.svelte';
-  import { TrainingType, type Training, type Weekday } from './models';
+  import { ShowRangeEnum, TrainingType, type Training, type Weekday } from './models';
   import { initializeMap, mapHTMLToData } from './utils';
 
   // eslint-disable-next-line @typescript-eslint/init-declarations
   let transformedDataImmutable: Map<Weekday, Training[]>;
   let transformedData = new Map<Weekday, Training[]>();
   let showOptions = false;
+  let showRange = ShowRangeEnum.Today;
 
-  const weekNumber = getWeek(new Date());
-  const year = getYear(new Date());
+  const currentWeekNumber = getWeek(new Date());
+  const currentYear = getYear(new Date());
   const trainingFilter: Record<TrainingType, boolean> = {
     [TrainingType.SELECT_ALL]: false,
     [TrainingType.FITNESS]: false,
@@ -76,12 +77,18 @@
     );
     const html = await response.text();
 
-    transformedData = mapHTMLToData(html);
+    transformedData = mapHTMLToData(html, showRange);
     transformedDataImmutable = transformedData;
     updateTrainings();
   }
 
-  onMount(async () => loadData(year, weekNumber));
+  async function toggleRangeVisibility(): Promise<void> {
+    // side effect: reset week to current week
+    showRange = showRange === ShowRangeEnum.All ? ShowRangeEnum.Today : ShowRangeEnum.All;
+    await loadData(currentYear, currentWeekNumber);
+  }
+
+  onMount(async () => loadData(currentYear, currentWeekNumber));
 </script>
 
 <header>
@@ -89,23 +96,33 @@
     <Hamburger bind:open={showOptions} />
   </nav>
 </header>
+
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
 <!-- eslint-disable @typescript-eslint/no-unsafe-argument -->
 
 <Options
   {trainingFilter}
   bind:sidebar={showOptions}
-  on:change={({ detail: { filterParam } }) => {
+  on:changeTrainingsFilter={({ detail: { filterParam } }) => {
     updateTrainings(filterParam);
   }}
 />
 
 <div class="app-container">
-  <WeekSelect
-    {weekNumber}
-    {year}
-    on:data={async ({ detail: { weekNumber, year } }) => loadData(year, weekNumber)}
-  />
+  {#if showRange === ShowRangeEnum.All}
+    <WeekSelect
+      weekNumber={currentWeekNumber}
+      year={currentYear}
+      on:data={async ({ detail: { weekNumber, year } }) => loadData(year, weekNumber)}
+    />
+  {/if}
+
+  <button
+    class="toggle-button"
+    type="button"
+    on:click={toggleRangeVisibility}
+  >Show {showRange === ShowRangeEnum.Today ? 'weekly view' : 'today'}</button
+  >
 
   <Overview {transformedData} />
 </div>
@@ -121,5 +138,12 @@
 	.app-container {
 		padding: 2rem;
 		margin: 0 auto;
+	}
+
+	.toggle-button {
+		width: 100%;
+		margin-top: 20px;
+		border: 1px solid brown;
+		background-color: white;
 	}
 </style>
