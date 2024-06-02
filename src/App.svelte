@@ -4,7 +4,8 @@
 <script
   lang="ts"
   strictEvents>
-  import { getWeek, getYear } from 'date-fns';
+  import { getWeek, getYear, setDefaultOptions } from 'date-fns';
+  import { nl } from 'date-fns/locale';
   import { onMount } from 'svelte';
   import Hamburger from './components/Hamburger.svelte';
   import Options from './components/Options.svelte';
@@ -12,6 +13,7 @@
   import WeekSelect from './components/WeekSelect.svelte';
   import { ShowRangeEnum, TrainingType, type Training, type Weekday } from './models';
   import { initializeMap, mapHTMLToData } from './utils';
+  setDefaultOptions({ locale: nl })
 
   // eslint-disable-next-line @typescript-eslint/init-declarations
   let transformedDataImmutable: Map<Weekday, Training[]>;

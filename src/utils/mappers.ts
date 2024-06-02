@@ -27,7 +27,8 @@ export function mapHTMLToData(html: string, showRange: ShowRangeEnum): Map<Weekd
 
 	// ensure that map index corresponds with weekday nr
 	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
-	const weekdayToday = getDay(new Date()) - 1;
+	const weekdayToday = getDay(new Date()) + (6 % 7);
+
 	// Iterate over each 'items-day' element
 	itemsDayElements.forEach((itemsDayElement, index) => {
 		const ochtendElement = itemsDayElement.querySelector('.ochtend');
@@ -57,6 +58,7 @@ export function mapHTMLToData(html: string, showRange: ShowRangeEnum): Map<Weekd
 		const todayTrainings = allTrainings.get(weekdayToday);
 		const todaysTrainings = new Map<Weekday, Training[]>();
 		todaysTrainings.set(weekdayToday, todayTrainings!);
+
 		return todaysTrainings;
 	}
 
