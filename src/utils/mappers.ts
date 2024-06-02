@@ -24,10 +24,12 @@ export function mapHTMLToData(html: string, showRange: ShowRangeEnum): Map<Weekd
 	const doc = parser.parseFromString(html, 'text/html');
 	const itemsDayElements = doc.querySelectorAll('.items-day');
 	const allTrainings = initializeMap();
+	const dateFnsSunday = 0;
+	const arenaGymSunday = 6;
 
-	// ensure that map index corresponds with weekday nr
-	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
-	const weekdayToday = getDay(new Date()) + (6 % 7);
+	const weekdayToday =
+		// eslint-disable-next-line @typescript-eslint/no-magic-numbers
+		getDay(new Date()) === dateFnsSunday ? arenaGymSunday : getDay(new Date()) - 1;
 
 	// Iterate over each 'items-day' element
 	itemsDayElements.forEach((itemsDayElement, index) => {
