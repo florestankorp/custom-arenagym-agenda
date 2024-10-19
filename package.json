@@ -1,43 +1,43 @@
 {
-  "name": "svelte-standalone",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --open",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "deploy": "npx gh-pages -d dist",
-    "test": "vitest run",
-    "test:watch": "vitest"
-  },
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^3.0.2",
-    "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/svelte": "^4.1.0",
-    "@testing-library/user-event": "^14.5.2",
-    "@tsconfig/svelte": "^5.0.2",
-    "@types/eslint": "^8.56.0",
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-svelte": "^2.35.1",
-    "gh-pages": "^6.1.1",
-    "jest-dom": "^4.0.0",
-    "jsdom": "^24.0.0",
-    "prettier": "^3.1.1",
-    "prettier-plugin-svelte": "^3.1.2",
-    "svelte": "^4.2.12",
-    "svelte-check": "^3.6.4",
-    "tslib": "^2.6.2",
-    "typescript": "^5.2.2",
-    "vite": "^5.1.4",
-    "vite-plugin-pwa": "^0.19.3",
-    "vitest": "^1.3.1"
-  },
-  "dependencies": {
-    "date-fns": "^3.3.1"
-  }
+	"name": "svelte-standalone",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --open",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"deploy": "npx gh-pages -d dist",
+		"test": "vitest run",
+		"test:watch": "vitest"
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^3.0.2",
+		"@testing-library/jest-dom": "^6.4.2",
+		"@testing-library/svelte": "^4.1.0",
+		"@testing-library/user-event": "^14.5.2",
+		"@tsconfig/svelte": "^5.0.2",
+		"@types/eslint": "^8.56.0",
+		"@typescript-eslint/eslint-plugin": "^7.0.0",
+		"@typescript-eslint/parser": "^7.0.0",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-svelte": "^2.35.1",
+		"gh-pages": "^6.1.1",
+		"jest-dom": "^4.0.0",
+		"jsdom": "^24.0.0",
+		"prettier": "^3.1.1",
+		"prettier-plugin-svelte": "^3.1.2",
+		"svelte": "^4.2.12",
+		"svelte-check": "^3.6.4",
+		"tslib": "^2.6.2",
+		"typescript": "^5.2.2",
+		"vite": "^5.1.4",
+		"vite-plugin-pwa": "^0.19.3",
+		"vitest": "^1.3.1"
+	},
+	"dependencies": {
+		"date-fns": "^3.3.1"
+	}
 }

@@ -1,36 +1,14 @@
-<script
-  lang="ts"
-  strictEvents>
-  export let open = false;
+<script lang="ts" strictEvents>
+	export let open = false;
 </script>
 
 <!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
-<button
-  class:open
-  type="button"
-  on:click={() => (open = true)}>
-  <svg
-    height="24"
-    width="32">
-    <line
-      id="top"
-      x1="0"
-      x2="24"
-      y1="2"
-      y2="2" />
-    <line
-      id="middle"
-      x1="0"
-      x2="24"
-      y1="12"
-      y2="12" />
-    <line
-      id="bottom"
-      x1="0"
-      x2="24"
-      y1="22"
-      y2="22" />
-  </svg>
+<button class:open type="button" on:click={() => (open = true)}>
+	<svg height="24" width="32">
+		<line id="top" x1="0" x2="24" y1="2" y2="2" />
+		<line id="middle" x1="0" x2="24" y1="12" y2="12" />
+		<line id="bottom" x1="0" x2="24" y1="22" y2="22" />
+	</svg>
 </button>
 
 <style>
