@@ -1,11 +1,25 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable max-statements */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-/* eslint-disable sort-imports */
-/* eslint-disable sort-vars */
-
+/* eslint-disable max-lines-per-function */
 import { getDay } from 'date-fns/getDay';
-import { ShowRangeEnum, Weekday, type Training, type TrainingType } from '../models';
+import { titles$ } from '../data/store';
+import { SELECT_ALL, ShowRangeEnum, Weekday, type Training } from '../models';
+
+function updateTitlesStore(title: string | null): void {
+	if (title === null) {
+		return;
+	}
+
+	titles$.update((titles) => {
+		titles.set(title, true);
+
+		// Sort the titles alphabetically
+		return new Map([
+			[SELECT_ALL, true],
+			...[...titles.entries()].sort((valueA, valueB) => valueA[0].localeCompare(valueB[0])),
+		]);
+	});
+}
 
 export function initializeMap(): Map<Weekday, Training[]> {
 	const initializedMap = new Map<Weekday, Training[]>();
@@ -28,7 +42,6 @@ export function mapHTMLToData(html: string, showRange: ShowRangeEnum): Map<Weekd
 	const arenaGymSunday = 6;
 
 	const weekdayToday =
-		// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 		getDay(new Date()) === dateFnsSunday ? arenaGymSunday : getDay(new Date()) - 1;
 
 	// Iterate over each 'items-day' element
@@ -43,11 +56,13 @@ export function mapHTMLToData(html: string, showRange: ShowRangeEnum): Map<Weekd
 			}
 
 			daytime.querySelectorAll('.evtitem').forEach((evtitem) => {
-				const title = evtitem.querySelector('.title')!.textContent as TrainingType;
-				const time = evtitem.querySelector('.time')!.textContent;
-				const trainer = evtitem.querySelector('.trainer')!.textContent;
+				const title = evtitem.querySelector('.title')?.textContent ?? null;
+				const time = evtitem.querySelector('.time')?.textContent ?? null;
+				const trainer = evtitem.querySelector('.trainer')?.textContent ?? null;
 
-				allTrainings.get(index)!.push({
+				updateTitlesStore(title);
+
+				allTrainings.get(index)?.push({
 					time,
 					title,
 					trainer,
@@ -59,7 +74,7 @@ export function mapHTMLToData(html: string, showRange: ShowRangeEnum): Map<Weekd
 	if (showRange === ShowRangeEnum.Today) {
 		const todayTrainings = allTrainings.get(weekdayToday);
 		const todaysTrainings = new Map<Weekday, Training[]>();
-		todaysTrainings.set(weekdayToday, todayTrainings!);
+		todaysTrainings.set(weekdayToday, todayTrainings ?? []);
 
 		return todaysTrainings;
 	}

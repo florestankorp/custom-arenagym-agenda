@@ -13,6 +13,7 @@ module.exports = {
 		'svelte/block-lang': 'off',
 		'@typescript-eslint/no-shadow': 'off',
 		'@typescript-eslint/prefer-readonly-parameter-types': 'off',
+		'@typescript-eslint/consistent-type-imports': 'off',
 	},
 	extends: ['eslint:all', 'plugin:@typescript-eslint/all', 'plugin:svelte/all', 'prettier'],
 	parser: '@typescript-eslint/parser',

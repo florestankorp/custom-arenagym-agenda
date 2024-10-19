@@ -2,6 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher<{ data: { year: number; weekNumber: number } }>();
+
 	export let weekNumber: number | null = null;
 	export let year: number | null = null;
 
@@ -9,11 +10,6 @@
 		dispatch('data', { weekNumber, year });
 	}
 </script>
-
-<!-- eslint-disable @typescript-eslint/explicit-function-return-type -->
-<!-- eslint-disable @typescript-eslint/require-await -->
-<!-- eslint-disable @typescript-eslint/no-magic-numbers -->
-<!-- eslint-disable svelte/no-unused-class-name -->
 
 <div class="week-select">
 	<button
